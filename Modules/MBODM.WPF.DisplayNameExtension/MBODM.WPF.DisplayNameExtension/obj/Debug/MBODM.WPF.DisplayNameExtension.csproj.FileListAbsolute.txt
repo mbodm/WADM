@@ -1,0 +1,4 @@
+C:\Users\Marcel\Desktop\MBODM.WPF.DisplayNameExtension\MBODM.WPF.DisplayNameExtension\bin\Debug\MBODM.WPF.DisplayNameExtension.dll
+C:\Users\Marcel\Desktop\MBODM.WPF.DisplayNameExtension\MBODM.WPF.DisplayNameExtension\bin\Debug\MBODM.WPF.DisplayNameExtension.pdb
+C:\Users\Marcel\Desktop\MBODM.WPF.DisplayNameExtension\MBODM.WPF.DisplayNameExtension\obj\Debug\MBODM.WPF.DisplayNameExtension.dll
+C:\Users\Marcel\Desktop\MBODM.WPF.DisplayNameExtension\MBODM.WPF.DisplayNameExtension\obj\Debug\MBODM.WPF.DisplayNameExtension.pdb

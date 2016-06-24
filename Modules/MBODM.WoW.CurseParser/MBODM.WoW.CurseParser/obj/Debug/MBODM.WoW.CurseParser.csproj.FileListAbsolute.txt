@@ -1,0 +1,5 @@
+C:\Users\Marcel\Desktop\WADM2004src\WADM\Modules\MBODM.WoW.CurseParser\MBODM.WoW.CurseParser\bin\Debug\MBODM.WoW.CurseParser.dll
+C:\Users\Marcel\Desktop\WADM2004src\WADM\Modules\MBODM.WoW.CurseParser\MBODM.WoW.CurseParser\bin\Debug\MBODM.WoW.CurseParser.pdb
+C:\Users\Marcel\Desktop\WADM2004src\WADM\Modules\MBODM.WoW.CurseParser\MBODM.WoW.CurseParser\obj\Debug\MBODM.WoW.CurseParser.csprojResolveAssemblyReference.cache
+C:\Users\Marcel\Desktop\WADM2004src\WADM\Modules\MBODM.WoW.CurseParser\MBODM.WoW.CurseParser\obj\Debug\MBODM.WoW.CurseParser.dll
+C:\Users\Marcel\Desktop\WADM2004src\WADM\Modules\MBODM.WoW.CurseParser\MBODM.WoW.CurseParser\obj\Debug\MBODM.WoW.CurseParser.pdb

@@ -1,0 +1,5 @@
+C:\Users\Marcel\Desktop\WADM2004src\WADM\Modules\MBODM.WADM.Persister\MBODM.WADM.Persister\bin\Debug\MBODM.WADM.Persister.dll
+C:\Users\Marcel\Desktop\WADM2004src\WADM\Modules\MBODM.WADM.Persister\MBODM.WADM.Persister\bin\Debug\MBODM.WADM.Persister.pdb
+C:\Users\Marcel\Desktop\WADM2004src\WADM\Modules\MBODM.WADM.Persister\MBODM.WADM.Persister\obj\Debug\MBODM.WADM.Persister.csprojResolveAssemblyReference.cache
+C:\Users\Marcel\Desktop\WADM2004src\WADM\Modules\MBODM.WADM.Persister\MBODM.WADM.Persister\obj\Debug\MBODM.WADM.Persister.dll
+C:\Users\Marcel\Desktop\WADM2004src\WADM\Modules\MBODM.WADM.Persister\MBODM.WADM.Persister\obj\Debug\MBODM.WADM.Persister.pdb
