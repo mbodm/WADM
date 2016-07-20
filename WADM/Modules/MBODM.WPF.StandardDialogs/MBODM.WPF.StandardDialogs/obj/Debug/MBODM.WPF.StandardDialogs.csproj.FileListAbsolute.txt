@@ -1,6 +1,0 @@
-C:\Users\Marcel\Desktop\MBODM.WPF.StandardDialogs\MBODM.WPF.StandardDialogs\bin\Debug\MBODM.WPF.StandardDialogs.dll
-C:\Users\Marcel\Desktop\MBODM.WPF.StandardDialogs\MBODM.WPF.StandardDialogs\bin\Debug\MBODM.WPF.StandardDialogs.pdb
-C:\Users\Marcel\Desktop\MBODM.WPF.StandardDialogs\MBODM.WPF.StandardDialogs\bin\Debug\Microsoft.WindowsAPICodePack.dll
-C:\Users\Marcel\Desktop\MBODM.WPF.StandardDialogs\MBODM.WPF.StandardDialogs\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
-C:\Users\Marcel\Desktop\MBODM.WPF.StandardDialogs\MBODM.WPF.StandardDialogs\obj\Debug\MBODM.WPF.StandardDialogs.dll
-C:\Users\Marcel\Desktop\MBODM.WPF.StandardDialogs\MBODM.WPF.StandardDialogs\obj\Debug\MBODM.WPF.StandardDialogs.pdb

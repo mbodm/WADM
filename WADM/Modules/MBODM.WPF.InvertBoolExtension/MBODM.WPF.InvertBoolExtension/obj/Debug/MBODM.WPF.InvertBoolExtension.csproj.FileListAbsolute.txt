@@ -1,9 +1,0 @@
-C:\Users\Marcel\Desktop\MBODM.WPF.InvertBoolExtension\MBODM.WPF.InvertBoolExtension\bin\Debug\MBODM.WPF.InvertBoolExtension.dll
-C:\Users\Marcel\Desktop\MBODM.WPF.InvertBoolExtension\MBODM.WPF.InvertBoolExtension\bin\Debug\MBODM.WPF.InvertBoolExtension.pdb
-C:\Users\Marcel\Desktop\MBODM.WPF.InvertBoolExtension\MBODM.WPF.InvertBoolExtension\obj\Debug\MBODM.WPF.InvertBoolExtension.dll
-C:\Users\Marcel\Desktop\MBODM.WPF.InvertBoolExtension\MBODM.WPF.InvertBoolExtension\obj\Debug\MBODM.WPF.InvertBoolExtension.pdb
-D:\Projekte\MBODM.WPF.InvertBoolExtension\MBODM.WPF.InvertBoolExtension\bin\Debug\MBODM.WPF.InvertBoolExtension.dll
-D:\Projekte\MBODM.WPF.InvertBoolExtension\MBODM.WPF.InvertBoolExtension\bin\Debug\MBODM.WPF.InvertBoolExtension.pdb
-D:\Projekte\MBODM.WPF.InvertBoolExtension\MBODM.WPF.InvertBoolExtension\obj\Debug\MBODM.WPF.InvertBoolExtension.csprojResolveAssemblyReference.cache
-D:\Projekte\MBODM.WPF.InvertBoolExtension\MBODM.WPF.InvertBoolExtension\obj\Debug\MBODM.WPF.InvertBoolExtension.dll
-D:\Projekte\MBODM.WPF.InvertBoolExtension\MBODM.WPF.InvertBoolExtension\obj\Debug\MBODM.WPF.InvertBoolExtension.pdb

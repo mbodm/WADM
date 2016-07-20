@@ -1,4 +1,0 @@
-C:\Users\Marcel\Desktop\MBODM.WPF.RelayCommand\MBODM.WPF.RelayCommand\bin\Debug\MBODM.WPF.RelayCommand.dll
-C:\Users\Marcel\Desktop\MBODM.WPF.RelayCommand\MBODM.WPF.RelayCommand\bin\Debug\MBODM.WPF.RelayCommand.pdb
-C:\Users\Marcel\Desktop\MBODM.WPF.RelayCommand\MBODM.WPF.RelayCommand\obj\Debug\MBODM.WPF.RelayCommand.dll
-C:\Users\Marcel\Desktop\MBODM.WPF.RelayCommand\MBODM.WPF.RelayCommand\obj\Debug\MBODM.WPF.RelayCommand.pdb

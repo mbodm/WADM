@@ -1,9 +1,0 @@
-C:\Users\Marcel\Desktop\MBODM.ZipExtractor\MBODM.ZipExtractor\bin\Debug\MBODM.ZipExtractor.dll
-C:\Users\Marcel\Desktop\MBODM.ZipExtractor\MBODM.ZipExtractor\bin\Debug\MBODM.ZipExtractor.pdb
-C:\Users\Marcel\Desktop\MBODM.ZipExtractor\MBODM.ZipExtractor\obj\Debug\MBODM.ZipExtractor.dll
-C:\Users\Marcel\Desktop\MBODM.ZipExtractor\MBODM.ZipExtractor\obj\Debug\MBODM.ZipExtractor.pdb
-D:\Projekte\MBODM.ZipExtractor\MBODM.ZipExtractor\bin\Debug\MBODM.ZipExtractor.dll
-D:\Projekte\MBODM.ZipExtractor\MBODM.ZipExtractor\bin\Debug\MBODM.ZipExtractor.pdb
-D:\Projekte\MBODM.ZipExtractor\MBODM.ZipExtractor\obj\Debug\MBODM.ZipExtractor.csprojResolveAssemblyReference.cache
-D:\Projekte\MBODM.ZipExtractor\MBODM.ZipExtractor\obj\Debug\MBODM.ZipExtractor.dll
-D:\Projekte\MBODM.ZipExtractor\MBODM.ZipExtractor\obj\Debug\MBODM.ZipExtractor.pdb

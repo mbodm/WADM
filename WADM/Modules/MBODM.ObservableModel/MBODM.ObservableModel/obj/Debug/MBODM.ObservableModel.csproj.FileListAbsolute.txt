@@ -1,8 +1,0 @@
-C:\Users\Marcel\Desktop\MBODM.ObservableModel\MBODM.ObservableModel\bin\Debug\MBODM.ObservableModel.dll
-C:\Users\Marcel\Desktop\MBODM.ObservableModel\MBODM.ObservableModel\bin\Debug\MBODM.ObservableModel.pdb
-C:\Users\Marcel\Desktop\MBODM.ObservableModel\MBODM.ObservableModel\obj\Debug\MBODM.ObservableModel.dll
-C:\Users\Marcel\Desktop\MBODM.ObservableModel\MBODM.ObservableModel\obj\Debug\MBODM.ObservableModel.pdb
-D:\Projekte\MBODM.ObservableModel\MBODM.ObservableModel\bin\Debug\MBODM.ObservableModel.dll
-D:\Projekte\MBODM.ObservableModel\MBODM.ObservableModel\bin\Debug\MBODM.ObservableModel.pdb
-D:\Projekte\MBODM.ObservableModel\MBODM.ObservableModel\obj\Debug\MBODM.ObservableModel.dll
-D:\Projekte\MBODM.ObservableModel\MBODM.ObservableModel\obj\Debug\MBODM.ObservableModel.pdb
