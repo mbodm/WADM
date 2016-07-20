@@ -13,10 +13,10 @@ namespace MBODM.WoW
     public sealed class AddonDownloadManager : IAddonDownloadManager
     {
         // Curse.com provide 2 possible ways to access the site, that we need to get the download url from.
-        // Either we can go to http://www.curse.com/addons/wow/AddonName/download, and curse forward us to
-        // the real site, with a number at the end (like http://www.curse.com/addons/wow/AddonName/864788).
+        // Either we can go to http://mods.curse.com/addons/wow/ADDONNAME/download and curse forward us to
+        // the real site with a number at the end (like http://mods.curse.com/addons/wow/ADDONNAME/123456).
         // Or we can go directly to the site with the number. But to know that number, we need to open and
-        // parse the standard addon site (http://www.curse.com/addons/wow/AddonName). This is the same url
+        // parse the addon project site (http://mods.curse.com/addons/wow/ADDONNAME). This is the same url
         // we saved in our database. Both ways have downsides. The forwarding takes time, and an access of
         // 2 sites takes time. The forwarding is around 200 ms faster than the 2-sites-variant. That leads
         // to the conclusion, we should use the forwarding. But it would be faster overall, if we save the
@@ -26,12 +26,12 @@ namespace MBODM.WoW
         // But most of the time only some few addons need an update and the rest of them could be directly
         // downloaded with the saved download link, or even not downloaded at all, cause we own the latest
         // version. So if we want always download every addon, the forward option is faster and the way to
-        // go. We just call the website parser with http://www.curse.com/addons/wow/AddonName/download for
+        // go. We now call the website parser with http://mods.curse.com/addons/wow/ADDONNAME/download for
         // every addon and we are done. But if we detect which addons need an update and there are 75 % or
         // less of it (which is true in most cases), the update is overall way faster, even if every addon
-        // by itself takes 200 ms more. Our number parser with a http://www.curse.com/addons/wow/AddonName
+        // by itself takes 200 ms more. Our number parser given http://mods.curse.com/addons/wow/ADDONNAME
         // will serve us the number, which we compare with the one in our saved real download link, and if
-        // they are not the same, our website parser with http://www.curse.com/addons/wow/AddonName/123456
+        // they are not the same, website parser given a http://mods.curse.com/addons/wow/ADDONNAME/123456
         // will lead us to the real download link and therefore we download the zip. But if the new number
         // and the one in our saved real download link are the same, we take that saved real download link
         // and download that zip, if we want to always overwrite all addons, or, if not, simply do nothing.
@@ -202,7 +202,7 @@ namespace MBODM.WoW
 
         private void ParseAddon(AddonProgressData progress)
         {
-            var parser = new CurseParser();
+            var parser = new WOW.CurseParser();
 
             progress.AddonName = parser.ParseAddonNameFromString(progress.AddonUrl);
 
@@ -213,7 +213,9 @@ namespace MBODM.WoW
             {
                 // If we have no old download url we use the forwarding-version to parse the download url.
 
-                progress.DownloadUrl = parser.ParseRealDownloadUrlFromSite("http://www.curse.com/addons/wow/" + progress.AddonName + "/" + "download");
+                var t1 = parser.ParseDownloadFileUrlFromSiteAsync("http://mods.curse.com/addons/wow/" + progress.AddonName);
+                t1.Wait();
+                progress.DownloadUrl = t1.Result;
                 progress.DownloadAddon = true;
             }
             else
@@ -221,12 +223,16 @@ namespace MBODM.WoW
                 // We get the new download number and compare it to the number, that is part of our existing old download link.
                 // If they do not match, we use the number-version to parse the new download url, else we download the old one.
 
-                var newNumber = parser.ParseAddonNumberFromSite(progress.AddonUrl);
+                var t2 = parser.ParseAddonNumberFromSiteAsync(progress.AddonUrl);
+                t2.Wait();
+                var newNumber = t2.Result;
                 var oldNumber = parser.ParseAddonNumberFromString(progress.DownloadUrl);
 
                 if (newNumber != oldNumber)
                 {
-                    progress.DownloadUrl = parser.ParseRealDownloadUrlFromSite("http://www.curse.com/addons/wow/" + progress.AddonName + "/" + newNumber);
+                    var t3 = parser.ParseDownloadFileUrlFromSiteAsync("http://mods.curse.com/addons/wow/" + progress.AddonName, newNumber);
+                    t3.Wait();
+                    progress.DownloadUrl = t3.Result;
                     progress.DownloadAddon = true;
                 }
             }

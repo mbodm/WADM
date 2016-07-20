@@ -30,9 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MBODM.WoW.CurseParser, Version=1.0.0.4, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="MBODM.WOW.CurseParser, Version=1.0.0.4, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\MBODM.WoW.CurseParser\MBODM.WoW.CurseParser\bin\Debug\MBODM.WoW.CurseParser.dll</HintPath>
+      <HintPath>..\..\MBODM.WOW.CurseParser\MBODM.WOW.CurseParser\bin\Debug\MBODM.WOW.CurseParser.dll</HintPath>
     </Reference>
     <Reference Include="MBODM.ZipExtractor, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

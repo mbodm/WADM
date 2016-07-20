@@ -27,8 +27,8 @@ rmdir /Q /S ..\Modules\MBODM.WoW.AddonDownloadManager\MBODM.WoW.AddonDownloadMan
 echo.
 
 echo Clean CurseParser
-rmdir /Q /S ..\Modules\MBODM.WoW.CurseParser\MBODM.WoW.CurseParser\bin
-rmdir /Q /S ..\Modules\MBODM.WoW.CurseParser\MBODM.WoW.CurseParser\obj
+rmdir /Q /S ..\Modules\MBODM.WOW.CurseParser\MBODM.WOW.CurseParser\bin
+rmdir /Q /S ..\Modules\MBODM.WOW.CurseParser\MBODM.WOW.CurseParser\obj
 echo.
 
 echo.

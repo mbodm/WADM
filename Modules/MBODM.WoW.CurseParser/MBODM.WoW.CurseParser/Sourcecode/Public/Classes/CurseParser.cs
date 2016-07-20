@@ -6,103 +6,128 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MBODM.WoW
+namespace MBODM.WOW
 {
     public sealed class CurseParser : ICurseParser
     {
-        public string ParseAddonNameFromString(string addonOverviewUrl)
+        private const string CurseAddonUrl = "mods.curse.com/addons/wow/";
+        private const string CurseDownloadUrl = "addons.curse.cursecdn.com/files/";
+        private const string ArgumentNullOrEmptyMessage = "Argument is null or empty.";
+        private const string InvalidCurseAddonUrlMessage = "The url is not a valid curse addon url.";
+        private const string InvalidCurseDownloadUrlMessage = "The url is not a valid curse download url.";
+
+        public string ParseAddonNameFromString(string addonSiteUrl)
         {
-            addonOverviewUrl = addonOverviewUrl.ToLower().Trim();
-
-            if (string.IsNullOrEmpty(addonOverviewUrl))
+            if (string.IsNullOrEmpty(addonSiteUrl))
             {
-                throw new ArgumentException("Parameter is null or empty.", "addonOverviewUrl");
+                throw new ArgumentException(ArgumentNullOrEmptyMessage, "addonSiteUrl");
             }
 
-            if (!addonOverviewUrl.Contains("curse.com/addons/wow/"))
-            {
-                throw new CurseParserException("The url is not a valid curse addon url.");
-            }
-
-            var s = string.Empty;
-
-            return addonOverviewUrl.Replace("http://", s).Replace("www.", s).Replace("curse.com/addons/wow", s).Replace("/", s).ToLower().Trim();
-        }
-
-        public string ParseAddonNumberFromString(string realDownloadUrl)
-        {
-            realDownloadUrl = realDownloadUrl.ToLower().Trim();
-
-            if (string.IsNullOrEmpty(realDownloadUrl))
-            {
-                throw new ArgumentException("Parameter is null or empty.", "realDownloadUrl");
-            }
-
-            var parts = realDownloadUrl.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
-
-            int tmp;
-            var numbers = parts.Where(s => int.TryParse(s.Trim(), out tmp));
-
-            return numbers.First().Trim().PadLeft(3, '0') + numbers.Last().Trim().PadLeft(3, '0');
-        }
-
-        public string ParseAddonNumberFromSite(string addonOverviewUrl)
-        {
-            addonOverviewUrl = addonOverviewUrl.ToLower().Trim();
-
-            if (string.IsNullOrEmpty(addonOverviewUrl))
-            {
-                throw new ArgumentException("Parameter is null or empty.", "addonOverviewUrl");
-            }
+            addonSiteUrl = FormAndCheckAddonSiteUrl(addonSiteUrl);
 
             try
             {
-                var request = (HttpWebRequest)HttpWebRequest.Create(addonOverviewUrl);
+                var name = addonSiteUrl.
+                    Replace("http://", string.Empty).
+                    Replace(CurseAddonUrl, string.Empty);
 
-                request.Proxy = null;
-                request.Timeout = 5000;
-
-                using (var response = (HttpWebResponse)request.GetResponse())
+                if (string.IsNullOrEmpty(name))
                 {
-                    using (var responseStream = response.GetResponseStream())
-                    {
-                        using (var streamReader = new StreamReader(responseStream))
-                        {
-                            var line = string.Empty;
-                            var nothingFound = false;
-
-                            while (string.IsNullOrEmpty(line) || !line.Contains("cta-button download-cc-large") || !line.Contains("-client"))
-                            {
-                                if (streamReader.EndOfStream)
-                                {
-                                    nothingFound = true;
-                                    break;
-                                }
-
-                                line = streamReader.ReadLine();
-                            }
-
-                            streamReader.Close();
-                            responseStream.Close();
-                            response.Close();
-
-                            if (nothingFound)
-                            {
-                                throw new CurseParserException();
-                            }
-
-                            var lineParts = line.Split(new string[] { "\"" }, StringSplitOptions.RemoveEmptyEntries);
-
-                            var clientPart = (from s in lineParts where s.Contains("-client") select s).FirstOrDefault();
-
-                            var subParts = clientPart.Split(new string[] { "/", "-client" }, StringSplitOptions.RemoveEmptyEntries);
-
-                            var number = subParts.Last();
-
-                            return number.Trim();
-                        }
-                    }
+                    throw new CurseParserException();
                 }
+
+                return name;
+            }
+            catch
+            {
+                throw new CurseParserException(InvalidCurseAddonUrlMessage);
+            }
+        }
+
+        public string ParseAddonFileFromString(string downloadFileUrl)
+        {
+            if (string.IsNullOrEmpty(downloadFileUrl))
+            {
+                throw new ArgumentException(ArgumentNullOrEmptyMessage, "downloadFileUrl");
+            }
+
+            downloadFileUrl = FormAndCheckDownloadFileUrl(downloadFileUrl);
+
+            try
+            {
+                var file = downloadFileUrl.
+                    Replace("http://", string.Empty).
+                    Replace(CurseDownloadUrl, string.Empty).
+                    Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries).
+                    LastOrDefault();
+
+                if (string.IsNullOrEmpty(file) || !file.EndsWith(".zip"))
+                {
+                    throw new CurseParserException();
+                }
+
+                return file;
+            }
+            catch
+            {
+                throw new CurseParserException(InvalidCurseDownloadUrlMessage);
+            }
+        }
+
+        public string ParseAddonNumberFromString(string downloadFileUrl)
+        {
+            if (string.IsNullOrEmpty(downloadFileUrl))
+            {
+                throw new ArgumentException(ArgumentNullOrEmptyMessage, "downloadFileUrl");
+            }
+
+            downloadFileUrl = FormAndCheckDownloadFileUrl(downloadFileUrl);
+
+            try
+            {
+                var parts = downloadFileUrl.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
+
+                int tmp;
+                var numbers = parts.Where(s => int.TryParse(s.Trim(), out tmp));
+
+                return numbers.First().Trim().PadLeft(3, '0') + numbers.Last().Trim().PadLeft(3, '0');
+            }
+            catch
+            {
+                throw new CurseParserException(InvalidCurseDownloadUrlMessage);
+            }
+        }
+
+        public async Task<string> ParseAddonNumberFromSiteAsync(string addonSiteUrl)
+        {
+            if (string.IsNullOrEmpty(addonSiteUrl))
+            {
+                throw new ArgumentException(ArgumentNullOrEmptyMessage, "addonSiteUrl");
+            }
+
+            addonSiteUrl = FormAndCheckAddonSiteUrl(addonSiteUrl);
+
+            try
+            {
+                Predicate<string> predicate = (line) =>
+                {
+                    return
+                    string.IsNullOrEmpty(line) ||
+                    !line.Contains("cta-button download-cc-large") ||
+                    !line.Contains("-client");
+                };
+
+                var parseResult = await ParseCurseAsync(addonSiteUrl, predicate).ConfigureAwait(false);
+
+                var lineParts = parseResult.Split(new string[] { "\"" }, StringSplitOptions.RemoveEmptyEntries);
+
+                var clientPart = (from s in lineParts where s.Contains("-client") select s).FirstOrDefault();
+
+                var subParts = clientPart.Split(new string[] { "/", "-client" }, StringSplitOptions.RemoveEmptyEntries);
+
+                var number = subParts.Last();
+
+                return number.Trim();
             }
             catch
             {
@@ -110,64 +135,51 @@ namespace MBODM.WoW
             }
         }
 
-        public string ParseRealDownloadUrlFromSite(string addonDownloadUrl)
+        public async Task<string> ParseDownloadFileUrlFromSiteAsync(string addonSiteUrl, string number)
         {
             // After many tests, this is the fastest and best method, no matter if we use the forward or update version.
             // 1) The site www.curse.com use "chunked Transfer-Encoding" and so we safe time if we do not load all HTML.
             // 2) The HTML Agility Pack is really fast enough, but we have only a half HTML site, so we can not use him.
             // 3) We use HttpWebRequest instead of WebClient, cause we only need parts of the content instead all of it.
 
-            addonDownloadUrl = addonDownloadUrl.ToLower().Trim();
-
-            if (string.IsNullOrEmpty(addonDownloadUrl))
+            if (string.IsNullOrEmpty(addonSiteUrl))
             {
-                throw new ArgumentException("Parameter is null or empty.", "addonDownloadUrl");
+                throw new ArgumentException(ArgumentNullOrEmptyMessage, "addonSiteUrl");
             }
+
+            addonSiteUrl = FormAndCheckAddonSiteUrl(addonSiteUrl);
 
             try
             {
-                var request = (HttpWebRequest)HttpWebRequest.Create(addonDownloadUrl);
+                var downloadSiteUrl = string.Empty;
 
-                request.Proxy = null;
-                request.Timeout = 5000;
-
-                using (var response = (HttpWebResponse)request.GetResponse())
+                if (!string.IsNullOrEmpty(number))
                 {
-                    using (var responseStream = response.GetResponseStream())
-                    {
-                        using (var streamReader = new StreamReader(responseStream))
-                        {
-                            var line = string.Empty;
-                            var nothingFound = false;
-
-                            while (string.IsNullOrEmpty(line) || !line.Contains("data-href") || !line.Contains("http://addons.curse.cursecdn.com") || !line.Contains(".zip"))
-                            {
-                                if (streamReader.EndOfStream)
-                                {
-                                    nothingFound = true;
-                                    break;
-                                }
-
-                                line = streamReader.ReadLine();
-                            }
-
-                            streamReader.Close();
-                            responseStream.Close();
-                            response.Close();
-
-                            if (nothingFound)
-                            {
-                                throw new CurseParserException();
-                            }
-
-                            var lineParts = line.Split(new string[] { "\"" }, StringSplitOptions.None);
-
-                            var result = (from s in lineParts where s.Contains(".zip") select s).FirstOrDefault();
-
-                            return result.ToLower().Trim();
-                        }
-                    }
+                    // Faster direct version
+                    downloadSiteUrl = addonSiteUrl + "/" + number;
                 }
+                else
+                {
+                    // Slower forwarding version
+                    downloadSiteUrl = addonSiteUrl + "/" + "download";
+                }
+
+                Predicate<string> predicate = (line) =>
+                {
+                    return
+                    string.IsNullOrEmpty(line) ||
+                    !line.Contains("data-href") ||
+                    !line.Contains(CurseDownloadUrl) ||
+                    !line.Contains(".zip");
+                };
+
+                var parseResult = await ParseCurseAsync(downloadSiteUrl, predicate).ConfigureAwait(false);
+
+                var parts = parseResult.Split(new string[] { "\"" }, StringSplitOptions.None);
+
+                var url = (from s in parts where s.Contains(".zip") select s).FirstOrDefault();
+
+                return url.ToLower().Trim();
             }
             catch
             {
@@ -175,39 +187,82 @@ namespace MBODM.WoW
             }
         }
 
-        /*
-        private string GetRealDownloadUrl(string addonName)
+        public Task<string> ParseDownloadFileUrlFromSiteAsync(string addonSiteUrl)
         {
-            var htmlDocument = new HtmlAgilityPack.HtmlDocument();
+            return ParseDownloadFileUrlFromSiteAsync(addonSiteUrl, null);
+        }
 
-            var site = string.Empty;
+        private string FormAndCheckAddonSiteUrl(string addonSiteUrl)
+        {
+            addonSiteUrl = addonSiteUrl.ToLower().Trim();
 
-            using (var webClient = new WebClient())
+            if (!addonSiteUrl.Contains(CurseAddonUrl))
             {
-                site = webClient.DownloadString("http://www.curse.com/addons/wow/" + addonName + "/download");
-                
-                if (string.IsNullOrEmpty(site))
+                throw new CurseParserException(InvalidCurseAddonUrlMessage);
+            }
+
+            if (addonSiteUrl.Last() == '/')
+            {
+                addonSiteUrl = addonSiteUrl.TrimEnd('/');
+            }
+
+            return addonSiteUrl;
+        }
+
+        private string FormAndCheckDownloadFileUrl(string downloadFileUrl)
+        {
+            downloadFileUrl = downloadFileUrl.ToLower().Trim();
+
+            if (!downloadFileUrl.Contains(CurseDownloadUrl))
+            {
+                throw new CurseParserException(InvalidCurseDownloadUrlMessage);
+            }
+
+            return downloadFileUrl;
+        }
+
+        private async Task<string> ParseCurseAsync(string url, Predicate<string> predicate)
+        {
+            url = url.ToLower().Trim();
+
+            var request = (HttpWebRequest)HttpWebRequest.Create(url);
+
+            request.Proxy = null;
+            request.Timeout = 5000;
+
+            using (var response = (HttpWebResponse)await request.GetResponseAsync().ConfigureAwait(false))
+            {
+                using (var responseStream = response.GetResponseStream())
                 {
-                    return null;
+                    using (var streamReader = new StreamReader(responseStream))
+                    {
+                        var line = string.Empty;
+                        var nothingFound = false;
+
+                        while (predicate(line))
+                        {
+                            if (streamReader.EndOfStream)
+                            {
+                                nothingFound = true;
+                                break;
+                            }
+
+                            line = await streamReader.ReadLineAsync().ConfigureAwait(false);
+                        }
+
+                        streamReader.Close();
+                        responseStream.Close();
+                        response.Close();
+
+                        if (nothingFound)
+                        {
+                            throw new CurseParserException();
+                        }
+
+                        return line;
+                    }
                 }
-
-                htmlDocument.LoadHtml(site);
-
-                var q1 = from d in htmlDocument.DocumentNode.Descendants("div")
-                         from a in d.Attributes
-                         where a.Name == "class" && a.Value == "countdown"
-                         select d;
-
-                if (q1.Count() != 1) return string.Empty;
-
-                var q2 = from d in q1.First().Descendants()
-                         from a in d.Attributes
-                         where a.Name == "data-href"
-                         select a.Value;
-
-                return q2.FirstOrDefault();
             }
         }
-        */
     }
 }

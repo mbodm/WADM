@@ -7,7 +7,7 @@ set MSBUILD=%windir%\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe /target:Clea
 echo.
 
 echo Build CurseParser
-%MSBUILD% ..\Modules\MBODM.WoW.CurseParser\MBODM.WoW.CurseParser.sln
+%MSBUILD% ..\Modules\MBODM.WOW.CurseParser\MBODM.WOW.CurseParser.sln
 if errorlevel 1 goto end
 echo.
 
