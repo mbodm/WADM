@@ -213,7 +213,7 @@ namespace MBODM.WoW
             {
                 // If we have no old download url we use the forwarding-version to parse the download url.
 
-                var t1 = parser.ParseDownloadFileUrlFromSiteAsync("http://mods.curse.com/addons/wow/" + progress.AddonName);
+                var t1 = parser.ParseDownloadFileUrlFromSiteAsync("https://mods.curse.com/addons/wow/" + progress.AddonName);
                 t1.Wait();
                 progress.DownloadUrl = t1.Result;
                 progress.DownloadAddon = true;
@@ -230,7 +230,7 @@ namespace MBODM.WoW
 
                 if (newNumber != oldNumber)
                 {
-                    var t3 = parser.ParseDownloadFileUrlFromSiteAsync("http://mods.curse.com/addons/wow/" + progress.AddonName, newNumber);
+                    var t3 = parser.ParseDownloadFileUrlFromSiteAsync("https://mods.curse.com/addons/wow/" + progress.AddonName, newNumber);
                     t3.Wait();
                     progress.DownloadUrl = t3.Result;
                     progress.DownloadAddon = true;

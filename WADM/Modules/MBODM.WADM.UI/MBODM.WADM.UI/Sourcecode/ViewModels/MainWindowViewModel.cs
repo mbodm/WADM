@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -164,13 +165,17 @@ namespace MBODM.WADM.UI
                     ErrorsOccurred = false;
                     TextData["Status"] = string.Empty;
 
+                    var stopwatch = new Stopwatch();
+
                     var dsHandler = DownloadStarted;
                     if (dsHandler != null) dsHandler();
 
                     businessLogic.DownloadFinished += (wasCancelled) =>
                     {
+                        stopwatch.Stop();
+
                         IsDownloading = false;
-                        TextData["Status"] = "All downloads finished";
+                        TextData["Status"] = "All downloads finished (after " + string.Format("{0:0.0}", (float)stopwatch.ElapsedMilliseconds / 1000) + " seconds)";
 
                         var errorAddons = from a in Addons where a.Error select a;
                         if (errorAddons.Any())
@@ -191,6 +196,8 @@ namespace MBODM.WADM.UI
 
                     try
                     {
+                        stopwatch.Restart();
+
                         businessLogic.Download();
                     }
                     catch (Exception exception)

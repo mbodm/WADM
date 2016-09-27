@@ -20,7 +20,4 @@ echo.
 del /Q .\WADM\*.pdb
 del /Q .\WADM\*.config
 
-echo.
-echo.
-
 pause

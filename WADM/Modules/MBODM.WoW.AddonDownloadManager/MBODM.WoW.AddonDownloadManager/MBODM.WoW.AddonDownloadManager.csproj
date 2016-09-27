@@ -34,8 +34,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\MBODM.WOW.CurseParser\MBODM.WOW.CurseParser\bin\Debug\MBODM.WOW.CurseParser.dll</HintPath>
     </Reference>
-    <Reference Include="MBODM.ZipExtractor, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="MBODM.ZipExtractor">
       <HintPath>..\..\MBODM.ZipExtractor\MBODM.ZipExtractor\bin\Debug\MBODM.ZipExtractor.dll</HintPath>
     </Reference>
     <Reference Include="System" />

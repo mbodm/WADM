@@ -29,6 +29,7 @@ namespace MBODM.WOW
             {
                 var name = addonSiteUrl.
                     Replace("http://", string.Empty).
+                    Replace("https://", string.Empty).
                     Replace(CurseAddonUrl, string.Empty);
 
                 if (string.IsNullOrEmpty(name))
@@ -57,6 +58,7 @@ namespace MBODM.WOW
             {
                 var file = downloadFileUrl.
                     Replace("http://", string.Empty).
+                    Replace("https://", string.Empty).
                     Replace(CurseDownloadUrl, string.Empty).
                     Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries).
                     LastOrDefault();
