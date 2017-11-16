@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{56EAF5E8-B121-4B00-A68E-3E60264469A8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MBODM.WoW</RootNamespace>
+    <AssemblyName>MBODM.WoW.AddonDownloadManager</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sourcecode\Public\Classes\AddonDownloadManagerException.cs" />
+    <Compile Include="Sourcecode\Public\Models\AddonData.cs" />
+    <Compile Include="Sourcecode\Public\Classes\AddonDownloadManager.cs" />
+    <Compile Include="Sourcecode\Public\Models\AddonProgressData.cs" />
+    <Compile Include="Sourcecode\Public\Enums\AddonProgressStatus.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sourcecode\Public\Interfaces\IAddonDownloadManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MBODM.WOW.CurseParser\MBODM.WOW.CurseParser.csproj">
+      <Project>{DB56E14C-6B07-4366-B24D-8BBF85618522}</Project>
+      <Name>MBODM.WOW.CurseParser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MBODM.WPF.InvertBoolExtension\MBODM.WPF.InvertBoolExtension.csproj">
+      <Project>{faeec221-704b-4925-9af2-c92694e2b569}</Project>
+      <Name>MBODM.WPF.InvertBoolExtension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MBODM.ZipExtractor\MBODM.ZipExtractor.csproj">
+      <Project>{df1c1703-26a7-4845-a77d-8297cc1a1cae}</Project>
+      <Name>MBODM.ZipExtractor</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
