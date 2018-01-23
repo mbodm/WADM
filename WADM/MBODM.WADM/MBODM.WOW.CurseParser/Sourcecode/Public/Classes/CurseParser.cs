@@ -10,7 +10,7 @@ namespace MBODM.WOW
 {
     public sealed class CurseParser : ICurseParser
     {
-        private const string CurseAddonUrl = "https://www.curseforge.com/wow/addons/";
+        private const string CurseAddonUrl = "https://wow.curseforge.com/projects/";
         private const string ArgumentNullOrEmptyMessage = "Argument is null or empty.";
         private const string InvalidCurseAddonUrlMessage = "The url is not a valid curse addon url.";
 
@@ -80,31 +80,15 @@ namespace MBODM.WOW
 
                 using (var httpClient = new HttpClient(httpClientHandler))
                 {
-                    var url1 = CurseAddonUrl + addonName + "/download";
+                    var url = CurseAddonUrl + addonName + "/files/latest";
 
-                    using (var request1 = new HttpRequestMessage(HttpMethod.Get, url1))
+                    using (var request = new HttpRequestMessage(HttpMethod.Get, url))
                     {
-                        var response1 = await httpClient.SendAsync(request1, cancellationToken).ConfigureAwait(false);
+                        var response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                        var content = await response1.Content.ReadAsStringAsync().ConfigureAwait(false);
+                        var downloadUrl = response.Headers.Location.ToString();
 
-                        var url2 = content.
-                            Split(new string[] { "<a class=\"download__link\" href=" }, StringSplitOptions.RemoveEmptyEntries).
-                            Last().
-                            Split(new string[] { ">here</a>" }, StringSplitOptions.RemoveEmptyEntries).
-                            First().
-                            Trim().
-                            Trim('"').
-                            Replace("/wow/addons/", CurseAddonUrl);
-
-                        using (var request2 = new HttpRequestMessage(HttpMethod.Get, url2))
-                        {
-                            var response2 = await httpClient.SendAsync(request2, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-
-                            var downloadUrl = response2.Headers.Location.ToString();
-
-                            return downloadUrl;
-                        }
+                        return downloadUrl;
                     }
                 }
             }
