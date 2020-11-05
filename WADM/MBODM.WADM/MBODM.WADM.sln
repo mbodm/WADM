@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27004.2009
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBODM.ObservableModel", "MBODM.ObservableModel\MBODM.ObservableModel.csproj", "{850D5CFD-2527-42AB-B3CB-6A51A188EAAE}"
 EndProject
@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBODM.WADM.UI", "MBODM.WADM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBODM.WoW.AddonDownloadManager", "MBODM.WoW.AddonDownloadManager\MBODM.WoW.AddonDownloadManager.csproj", "{56EAF5E8-B121-4B00-A68E-3E60264469A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBODM.WOW.CurseParser", "MBODM.WOW.CurseParser\MBODM.WOW.CurseParser.csproj", "{DB56E14C-6B07-4366-B24D-8BBF85618522}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBODM.WoW.CurseParser", "MBODM.WOW.CurseParser\MBODM.WoW.CurseParser.csproj", "{DB56E14C-6B07-4366-B24D-8BBF85618522}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBODM.WPF.DisplayNameExtension", "MBODM.WPF.DisplayNameExtension\MBODM.WPF.DisplayNameExtension.csproj", "{80FD9AE0-8C2C-4D27-8B11-E8F034B2F861}"
 EndProject

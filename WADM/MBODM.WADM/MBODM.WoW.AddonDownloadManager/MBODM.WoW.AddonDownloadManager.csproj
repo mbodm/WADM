@@ -49,9 +49,9 @@
     <Compile Include="Sourcecode\Public\Interfaces\IAddonDownloadManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MBODM.WOW.CurseParser\MBODM.WOW.CurseParser.csproj">
+    <ProjectReference Include="..\MBODM.WOW.CurseParser\MBODM.WoW.CurseParser.csproj">
       <Project>{DB56E14C-6B07-4366-B24D-8BBF85618522}</Project>
-      <Name>MBODM.WOW.CurseParser</Name>
+      <Name>MBODM.WoW.CurseParser</Name>
     </ProjectReference>
     <ProjectReference Include="..\MBODM.WPF.InvertBoolExtension\MBODM.WPF.InvertBoolExtension.csproj">
       <Project>{faeec221-704b-4925-9af2-c92694e2b569}</Project>

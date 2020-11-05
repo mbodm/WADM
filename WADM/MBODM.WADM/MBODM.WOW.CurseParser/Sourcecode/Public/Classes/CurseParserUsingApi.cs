@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
-namespace MBODM.WOW
+namespace MBODM.WoW
 {
     public sealed class CurseParserUsingApi : ICurseParser
     {

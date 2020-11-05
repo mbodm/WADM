@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MBODM.WOW
+namespace MBODM.WoW
 {
     [Serializable]
     public class CurseParserException : Exception

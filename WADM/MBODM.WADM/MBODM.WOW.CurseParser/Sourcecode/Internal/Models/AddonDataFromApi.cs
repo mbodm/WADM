@@ -1,4 +1,4 @@
-﻿namespace MBODM.WOW
+﻿namespace MBODM.WoW
 {
     internal sealed class AddonDataFromApi
     {

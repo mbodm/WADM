@@ -54,9 +54,9 @@ namespace MBODM.WADM
 
             // SpeedTest
             //speedTestStopWatch.Start();
-            //var addons = dataPersister.AddonDataEntries.Select((a, i) => new WoW.AddonData(a.AddonUrl, a.LastDownloadUrl, dataPersister.DownloadFolder, GetSpeedTestTime()));
+            //var addons = dataPersister.AddonDataEntries.Select((a, i) => new AddonData(a.AddonUrl, a.LastDownloadUrl, dataPersister.DownloadFolder, GetSpeedTestTime()));
 
-            var addons = dataPersister.AddonDataEntries.Select((a, i) => new WoW.AddonData(a.AddonUrl, a.LastDownloadUrl, dataPersister.DownloadFolder, null));
+            var addons = dataPersister.AddonDataEntries.Select((a, i) => new AddonData(a.AddonUrl, a.LastDownloadUrl, dataPersister.DownloadFolder, null));
 
             var downloadManager = new AddonDownloadManager(TaskScheduler.Default);
 
@@ -64,35 +64,35 @@ namespace MBODM.WADM
             {
                 switch (progressData.Status)
                 {
-                    case WoW.AddonProgressStatus.Parsing:
+                    case AddonProgressStatus.Parsing:
                         break;
-                    case WoW.AddonProgressStatus.ParsingFinished:
+                    case AddonProgressStatus.ParsingFinished:
                         Console.Write(".");
                         // SpeedTest
                         //Console.WriteLine("start - parsing finished " + (GetSpeedTestTime() - (long)progressData.CustomTag).ToString() + " ms");
                         //progressData.CustomTag = GetSpeedTestTime();
                         break;
-                    case WoW.AddonProgressStatus.ParseError:
+                    case AddonProgressStatus.ParseError:
                         error = "parse";
                         downloadManager.CancelDownloads();
                         break;
-                    case WoW.AddonProgressStatus.Downloading:
+                    case AddonProgressStatus.Downloading:
                         break;
-                    case WoW.AddonProgressStatus.DownloadingFinished:
+                    case AddonProgressStatus.DownloadingFinished:
                         dataPersister.AddonDataEntries.Where(a => a.AddonUrl == progressData.AddonUrl).FirstOrDefault().LastDownloadUrl = progressData.DownloadUrl;
                         Console.Write(".");
                         // SpeedTest    
                         //Console.WriteLine("parsing finished - download finished " + (GetSpeedTestTime() - (long)progressData.CustomTag).ToString() + " ms");
                         break;
-                    case WoW.AddonProgressStatus.DownloadError:
+                    case AddonProgressStatus.DownloadError:
                         error = "download";
                         downloadManager.CancelDownloads();
                         break;
-                    case WoW.AddonProgressStatus.Unzipping:
+                    case AddonProgressStatus.Unzipping:
                         break;
-                    case WoW.AddonProgressStatus.UnzippingFinished:
+                    case AddonProgressStatus.UnzippingFinished:
                         break;
-                    case WoW.AddonProgressStatus.UnzipError:
+                    case AddonProgressStatus.UnzipError:
                         error = "unzip";
                         downloadManager.CancelDownloads();
                         break;

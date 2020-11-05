@@ -9,7 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using MBODM.WoW;
-using MBODM.WOW;
 
 namespace MBODM.WADM.UI
 {

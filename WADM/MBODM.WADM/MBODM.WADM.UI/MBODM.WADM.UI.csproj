@@ -128,9 +128,9 @@
       <Project>{56eaf5e8-b121-4b00-a68e-3e60264469a8}</Project>
       <Name>MBODM.WoW.AddonDownloadManager</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MBODM.WOW.CurseParser\MBODM.WOW.CurseParser.csproj">
+    <ProjectReference Include="..\MBODM.WOW.CurseParser\MBODM.WoW.CurseParser.csproj">
       <Project>{DB56E14C-6B07-4366-B24D-8BBF85618522}</Project>
-      <Name>MBODM.WOW.CurseParser</Name>
+      <Name>MBODM.WoW.CurseParser</Name>
     </ProjectReference>
     <ProjectReference Include="..\MBODM.WPF.DisplayNameExtension\MBODM.WPF.DisplayNameExtension.csproj">
       <Project>{80fd9ae0-8c2c-4d27-8b11-e8f034b2f861}</Project>

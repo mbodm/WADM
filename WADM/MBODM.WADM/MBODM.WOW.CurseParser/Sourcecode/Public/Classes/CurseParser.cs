@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MBODM.WOW
+namespace MBODM.WoW
 {
     public sealed class CurseParser : ICurseParser
     {
