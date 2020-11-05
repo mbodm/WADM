@@ -108,7 +108,7 @@ namespace MBODM.WADM.UI
 
         public void AddAddon(string addonUrl, string downloadUrl, bool isActive)
         {
-            var parser = new CurseParser();
+            var parser = new CurseParserUsingApi();
             var addonName = parser.GetAddonName(addonUrl);
 
             var q = from a in Addons where a.AddonName == addonName select a;

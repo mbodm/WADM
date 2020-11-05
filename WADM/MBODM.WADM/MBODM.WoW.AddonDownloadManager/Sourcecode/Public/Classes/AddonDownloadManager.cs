@@ -202,7 +202,7 @@ namespace MBODM.WoW
 
         private void ParseAddon(AddonProgressData progress)
         {
-            var parser = new CurseParser();
+            var parser = new CurseParserUsingApi();
 
             progress.AddonName = parser.GetAddonName(progress.AddonUrl);
 
