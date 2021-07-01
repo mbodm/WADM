@@ -53,7 +53,7 @@ namespace MBODM.WoW
             // takes, before Curse is sold again). So i decided it is safe to stick with that
             // fixed gameId here. Small benefit: App is a bit faster, without another request.
 
-            var url = $"{CurseApiUrl}/addon/search?gameId=1";
+            var url = $"{CurseApiUrl}/addon/search?gameId=1&searchFilter={addonName}";
 
             using (var httpClient = new HttpClient())
             using (var response = await httpClient.GetAsync(url, cancellationToken))
@@ -66,6 +66,19 @@ namespace MBODM.WoW
                 response.EnsureSuccessStatusCode();
 
                 var content = await response.Content.ReadAsStringAsync();
+
+                // BugFix 01 July 2021:
+                // There are some addons containing an underscore in the addon name. In example
+                // the "quest_completist" addon. It seems the Curse API is unable to find these
+                // addons, when using such an addon name as "searchFilter" query in the url. In
+                // that case we try to find the addon, by repeating the Curse API requests, for
+                // every non-underscore part of the addon name. So, either we find the addon or
+                // fail gracefully with an exception, as we did before implementing this bugfix.
+
+                if (content == "[]" && addonName.Contains('_'))
+                {
+                    content = await UnderscoreInAddonNameBugFix(addonName, cancellationToken);
+                }
 
                 content = $"{{\"addons\": {content.Trim()}}}"; // JSON.NET can not parse an unnamed array.
 
@@ -91,6 +104,34 @@ namespace MBODM.WoW
 
                 return addonData;
             }
+        }
+
+        private async Task<string> UnderscoreInAddonNameBugFix(string addonName, CancellationToken cancellationToken)
+        {
+            var addonNameParts = addonName.Split('_');
+
+            foreach (var addonNamePart in addonNameParts)
+            {
+                if (!string.IsNullOrWhiteSpace(addonNamePart))
+                {
+                    var url = $"{CurseApiUrl}/addon/search?gameId=1&searchFilter={addonNamePart}";
+
+                    using (var httpClient = new HttpClient())
+                    using (var response = await httpClient.GetAsync(url, cancellationToken))
+                    {
+                        response.EnsureSuccessStatusCode();
+
+                        var content = await response.Content.ReadAsStringAsync();
+
+                        if (content != "[]")
+                        {
+                            return content;
+                        }
+                    }
+                }
+            }
+
+            return "[]";
         }
     }
 }
