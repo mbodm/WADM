@@ -32,18 +32,8 @@ namespace MBODM.WoW
         public async Task<string> GetDownloadUrlAsync(string addonName, CancellationToken cancellationToken)
         {
             var addonData = await GetAddonDataFromApi(addonName, cancellationToken);
-            var url = $"{CurseApiUrl}/addon/{addonData.Id}/file/{addonData.DefaultFileId}/download-url";
 
-            using (var httpClient = new HttpClient())
-            using (var response = await httpClient.GetAsync(url, cancellationToken))
-            {
-                response.EnsureSuccessStatusCode();
-
-                var content = await response.Content.ReadAsStringAsync();
-                var downloadUrl = content.Trim();
-
-                return downloadUrl;
-            }
+            return addonData.DownloadUrl;
         }
 
         private async Task<AddonDataFromApi> GetAddonDataFromApi(string addonName, CancellationToken cancellationToken)
@@ -91,16 +81,22 @@ namespace MBODM.WoW
 
                 var siteUrl = $"https://www.curseforge.com/wow/addons/{addonName}";
 
-                var addonData = addons.
-                    Where(addon => addon["websiteUrl"].ToString().Trim().ToLower() == siteUrl.Trim().ToLower()).
-                    Select(addon => new AddonDataFromApi()
-                    {
-                        Id = addon["id"].ToString(),
-                        Name = addon["name"].ToString(),
-                        WebsiteUrl = addon["websiteUrl"].ToString(),
-                        DefaultFileId = addon["defaultFileId"].ToString(),
-                    }).
-                    First();
+                var addon = addons.Where(addonToken => addonToken["websiteUrl"].ToString().Trim().ToLower() == siteUrl.Trim().ToLower()).FirstOrDefault();
+
+                if (addon == null)
+                {
+                    throw new InvalidOperationException("Could not found addon, using Curse API.");
+                }
+
+                var downloadUrl = GetRetailDownloadUrl(addon);
+
+                var addonData = new AddonDataFromApi()
+                {
+                    Id = addon["id"].ToString(),
+                    Name = addon["name"].ToString(),
+                    WebsiteUrl = addon["websiteUrl"].ToString(),
+                    DownloadUrl = downloadUrl,
+                };
 
                 return addonData;
             }
@@ -132,6 +128,32 @@ namespace MBODM.WoW
             }
 
             return "[]";
+        }
+
+        private string GetRetailDownloadUrl(JToken addon)
+        {
+            var latestFiles = addon["latestFiles"];
+
+            if (latestFiles != null && latestFiles.Type == JTokenType.Array)
+            {
+                foreach (var latestFile in latestFiles)
+                {
+                    // gameVersionFlavor -> Make sure it is WoW Retail. Not WoW Classic. Not Burning Crusade Classic.
+                    // releaseType -> Make sure it is a Release version. Not Alpha. Not Beta. Not something else.
+                    // downloadUrl -> Make sure it is a non-empty/valid download url. Not something else.
+
+                    var gameVersionFlavorValue = latestFile["gameVersionFlavor"]?.ToString()?.Trim() ?? string.Empty;
+                    var releaseTypeValue = latestFile["releaseType"]?.ToString()?.Trim() ?? string.Empty;
+                    var downloadUrlValue = latestFile["downloadUrl"]?.ToString()?.Trim() ?? string.Empty;
+
+                    if (gameVersionFlavorValue == "wow_retail" && releaseTypeValue == "1" && Uri.TryCreate(downloadUrlValue, UriKind.Absolute, out _))
+                    {
+                        return downloadUrlValue;
+                    }
+                }
+            }
+
+            throw new InvalidOperationException("Could not found retail-download-url of addon, using Curse API.");
         }
     }
 }
