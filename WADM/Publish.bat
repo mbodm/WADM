@@ -11,12 +11,12 @@ mkdir %DST%
 echo.
 
 echo Get WADM.UI
-xcopy /Q /Y %SRC%\MBODM.WADM.UI\bin\Debug\*.* %DST%
+xcopy /Q /Y %SRC%\MBODM.WADM.UI\bin\Release\*.* %DST%
 rename %DST%\MBODM.WADM.UI.exe WADM.exe
 echo.
 
 echo Get WADM.Console
-xcopy /Q /Y %SRC%\MBODM.WADM.Console\bin\Debug\MBODM.WADM.Console.exe %DST%
+xcopy /Q /Y %SRC%\MBODM.WADM.Console\bin\Release\MBODM.WADM.Console.exe %DST%
 rename %DST%\MBODM.WADM.Console.exe WADMCMD.exe
 echo.
 
