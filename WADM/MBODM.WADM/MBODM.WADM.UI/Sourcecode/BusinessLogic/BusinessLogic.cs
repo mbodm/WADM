@@ -191,6 +191,11 @@ namespace MBODM.WADM.UI
                         var addon = (from a in Addons where a.AddonName == progress.AddonName select a).FirstOrDefault();
                         if (addon != null) addon.DownloadUrl = progress.DownloadUrl;
                         break;
+                    case AddonProgressStatus.ParseErrorNoRetailRelease:
+                        // Patch 26 Feb 2022: We have to add this, since we wanna show a different status in the UI.
+                        (progress.CustomTag as AddonData).StatusText = "No release version";
+                        (progress.CustomTag as AddonData).Error = true;
+                        break;
                     case AddonProgressStatus.ParseError:
                         (progress.CustomTag as AddonData).StatusText = "Parse error";
                         (progress.CustomTag as AddonData).Error = true;

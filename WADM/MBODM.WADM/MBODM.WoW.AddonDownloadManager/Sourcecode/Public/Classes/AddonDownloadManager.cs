@@ -147,9 +147,19 @@ namespace MBODM.WoW
             {
                 ParseAddon(progress);
             }
-            catch
+            catch (Exception e)
             {
-                progress.Status = AddonProgressStatus.ParseError;
+                // Patch 26 Feb 2022: We have to add this, since we wanna show a different status in the UI.
+
+                if (e?.InnerException?.Data != null && e.InnerException.Data.Contains("NoRetailRelease"))
+                {
+                    progress.Status = AddonProgressStatus.ParseErrorNoRetailRelease;
+                }
+                else
+                {
+                    progress.Status = AddonProgressStatus.ParseError;
+                }
+
                 OnProgress(progress);
 
                 return;

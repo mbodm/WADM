@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace MBODM.WoW
 {
@@ -80,7 +81,19 @@ namespace MBODM.WoW
 
                 var siteUrl = $"https://www.curseforge.com/wow/addons/{addonName}";
 
-                var addon = addons.Where(addonToken => addonToken["websiteUrl"].ToString().Trim().ToLower() == siteUrl.Trim().ToLower()).FirstOrDefault();
+                var addon = addons.Where(addonToken =>
+                {
+                    var webSiteUrl = addonToken["websiteUrl"].ToString();
+
+                    // BugFix 26 Feb 2022:
+                    // It seems for some addons (in example TomTom) the webSiteUrl string accidentally is surrounded by curly braces "{ }".
+                    // Fixed this by trimming them. If there are no curly braces, trimming does not change anything. Else they are removed.
+
+                    webSiteUrl = webSiteUrl.Trim().Trim('{').Trim('}');
+
+                    return webSiteUrl.Trim().ToLower() == siteUrl.Trim().ToLower();
+                }).
+                FirstOrDefault();
 
                 if (addon == null)
                 {
@@ -133,6 +146,8 @@ namespace MBODM.WoW
         {
             var latestFiles = addon["latestFiles"];
 
+            var retailReleaseFound = false; // Patch 26 Feb 2022: We have to add this, since we wanna show a different status in the UI.
+
             if (latestFiles != null && latestFiles.Type == JTokenType.Array)
             {
                 foreach (var latestFile in latestFiles)
@@ -140,6 +155,16 @@ namespace MBODM.WoW
                     // gameVersionFlavor -> Make sure it is WoW Retail. Not WoW Classic. Not Burning Crusade Classic.
                     // releaseType -> Make sure it is a Release version. Not Alpha. Not Beta. Not something else.
                     // downloadUrl -> Make sure it is a non-empty/valid download url. Not something else.
+
+                    // gameVersionFlavor:
+                    //      "wow_retail" -> Retail
+                    //      "wow_classic" -> Classic
+                    //      "wow_burning_crusade" -> TBCC
+
+                    // releaseType:
+                    //      "1" -> Release
+                    //      "2" -> Beta
+                    //      "3" -> Alpha
 
                     var gameVersionFlavorValue = latestFile["gameVersionFlavor"]?.ToString()?.Trim() ?? string.Empty;
                     var releaseTypeValue = latestFile["releaseType"]?.ToString()?.Trim() ?? string.Empty;
@@ -149,7 +174,30 @@ namespace MBODM.WoW
                     {
                         return downloadUrlValue;
                     }
+
+                    // Patch 26 Feb 2022:
+                    // After big WoW patch releases, it takes a while until addons are updated and offer an actual retail release version again.
+                    // This small patch was implemented, to show a separate error message for such addons, to make that state visible in the UI.
+
+                    if (!retailReleaseFound)
+                    {
+                        if (gameVersionFlavorValue == "wow_retail" && releaseTypeValue == "1")
+                        {
+                            retailReleaseFound = true;
+                        }
+                    }
                 }
+            }
+
+            // Patch 26 Feb 2022: We have to add this, since we wanna show a different status in the UI.
+
+            if (!retailReleaseFound)
+            {
+                var e = new InvalidOperationException("Could not found retail release version.");
+
+                e.Data.Add("NoRetailRelease", true.ToString());
+
+                throw e;
             }
 
             throw new InvalidOperationException("Could not found retail-download-url of addon, using Curse API.");
