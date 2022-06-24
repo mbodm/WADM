@@ -3,7 +3,9 @@ An addon download manager for World of Warcraft
 
 #### ⛔ WADM, at the moment, is not working any longer! ⛔
 
-WADM is an easy-to-use addon download manager for the popular video game [World of Warcraft](https://worldofwarcraft.com). Edit2022: Long long ago, in the past, WADM´s home was found at CodePlex: http://wadm.codeplex.com. At this time i just used GitHub for more comfortable source code version control. But ofc, since years, WADM lives here at GitHub. I just saw this rather old text here and added some clarification.
+WADM is an easy-to-use addon download manager for the popular video game [World of Warcraft](https://worldofwarcraft.com).
+
+Edit2022: Long long ago, in the past, WADM´s home was found at CodePlex: http://wadm.codeplex.com. At this time i just used GitHub for more comfortable source code version control. But ofc, since years, WADM lives here at GitHub. I just saw this rather old text here and added some clarification.
 
 ⚠️
 
