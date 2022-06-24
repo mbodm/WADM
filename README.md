@@ -3,7 +3,7 @@ An addon download manager for World of Warcraft
 
 #### ⛔ WADM, at the moment, is not working any longer! ⛔
 
-WADM is an easy-to-use addon download manager for the popular video game [World of Warcraft](https://worldofwarcraft.com). WADM is made to simplify downloading of multiple WoW addons from the [Curse](https://www.curseforge.com) website. WADM is written in C#, using the .NET Framework and is deployed as a WPF GUI application, as well as a command line application. It´s just a simple ".exe file", no installation required. WADM exists since a long time (~2011) and WADM´s formerly home was found at [CodePlex](http://wadm.codeplex.com).
+WADM is an easy-to-use addon download manager for the popular video game [World of Warcraft](https://worldofwarcraft.com). WADM is made to simplify downloading of multiple WoW addons from the [Curse](https://www.curseforge.com) website. WADM is written in C#, using the .NET Framework and is deployed as a WPF GUI application, as well as a command line application. It´s just a simple .exe file, with no installation required. WADM exists since a long time (~2011) and WADM´s formerly home was found at [CodePlex](http://wadm.codeplex.com).
 
 ⚠️
 
