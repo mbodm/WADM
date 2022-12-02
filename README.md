@@ -1,7 +1,7 @@
 # WADM
 An addon download manager for World of Warcraft
 
-#### ℹ Quick update ℹ
+#### ℹ Note ℹ
 If you download the addons manually now and you need a fast way to unzip them all into your addons folder, please have a look at [WAUZ](https://github.com/mbodm/wauz), here on GitHub.
 
 #### ⛔ WADM, at the moment, is not working any longer! ⛔
