@@ -1,7 +1,6 @@
 # WADM
 An addon download manager for World of Warcraft
 
-#### Screenshot:
 ![alt text](https://github.com/MBODM/WADM/blob/master/SCREENSHOT.png)
 
 #### ℹ Note ℹ
